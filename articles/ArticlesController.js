@@ -8,13 +8,13 @@ router.get("/admin/articles", (req, res) => {
     Article.findAll({
         include: [{model: Category}]
     }).then(articles => {
-        res.render("admin/articles/index", {articles: articles});
+        res.render("admin/articles/index", {articles});
     });
 });
 
 router.get("/admin/articles/new", (req, res) => {
     Category.findAll().then(categories => {
-        res.render("admin/articles/new", {categories: categories});
+        res.render("admin/articles/new", {categories});
     })
 });
 
@@ -31,6 +31,27 @@ router.post("/articles/save", (req, res) =>{
     }).then(() => {
         res.redirect("/admin/articles")
     });
+});
+
+router.post("/articles/delete", (req, res) => {
+    var id = req.body.id;
+    if(id != undefined){ //SE FOR DIFERENTE DE NULO
+        if(!isNaN(id)){ //SE FOR UM NÚMERO
+
+            Article.destroy({
+                where: {
+                    id: id
+                }
+            }).then(() => {
+                res.redirect("/admin/articles");
+            });
+
+        }else { //SE NÃO FOR UM NÚMERO
+            res.redirect("/admin/articles");
+        }
+    }else { //SE FOR NULO
+        res.redirect("/admin/articles");
+    }
 });
 
 module.exports = router;

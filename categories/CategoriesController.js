@@ -23,7 +23,7 @@ router.post("/categories/save", (req, res) => {
 
 router.get("/admin/categories", (req, res) => {
     Category.findAll({ raw: true}).then(categories => { 
-        res.render("admin/categories/index", {categories: categories});
+        res.render("admin/categories/index", {categories});
     });
 });
 
@@ -55,7 +55,7 @@ router.get("/admin/categories/edit/:id", (req, res) => {
     }
     Category.findByPk(id).then(category => {
         if(category != undefined){
-            res.render("admin/categories/edit", {category : category});
+            res.render("admin/categories/edit", {category});
         }else {
             res.redirect("/admin/categories");
         }

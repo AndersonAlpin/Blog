@@ -36,7 +36,39 @@ app.use("/", articlesController);
 
 // Rota Principal
 app.get("/", (req, res) => {
-    res.render("index");
+
+    Article.findAll({
+        order: [
+            ['id', 'DESC']
+        ]
+    }).then(articles => {
+        Category.findAll().then(categories => {
+            res.render("index", { articles, categories });
+        })
+    });
+
+});
+
+app.get("/:slug", (req, res) => {
+
+    var slug = req.params.slug;
+
+    Article.findOne({
+        where: {
+            slug
+        }
+    }).then(article => {
+        if (article != undefined) {
+            Category.findAll().then(categories => {
+                res.render("article", { article, categories });
+            })
+        } else {
+            res.redirect("/");
+        }
+    }).catch(err => {
+        res.redirect("/");
+    })
+
 });
 
 app.listen(port, () => {
