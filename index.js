@@ -1,7 +1,8 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const connection = require("./database/database")
+const connection = require("./database/database");
+const port = 3000;
 
 // Import Rotas
 const categoriesController = require("./categories/CategoriesController");
@@ -38,6 +39,6 @@ app.get("/", (req, res) => {
     res.render("index");
 });
 
-app.listen(8080, () => {
+app.listen(port, () => {
     console.log("Servidor rodando!")
 });
