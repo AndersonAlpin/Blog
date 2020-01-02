@@ -8,8 +8,8 @@ const port = 3000;
 const categoriesController = require("./categories/CategoriesController");
 const articlesController = require("./articles/ArticlesController");
 
-const Article = require("./articles/Article");
 const Category = require("./categories/Category");
+const Article = require("./articles/Article");
 
 // View engine
 app.set('view engine', 'ejs');
